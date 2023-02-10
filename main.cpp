@@ -59,6 +59,18 @@ struct node * searchNode( struct node * p, string text) {
         return searchNode(p->next, text);
 }
 
+void deleteNode( struct node * p, string text) {
+    struct node * aux = new node();
+    if (p->next == NULL)
+        return;
+    else if (p->text == text) {
+        aux = p;
+        p = p->next;
+        delete aux;
+    }
+    deleteNode(p,text);
+}
+
 int main() {
     struct node * root = createNode("raiz");
     struct node * test = new node();
@@ -66,8 +78,8 @@ int main() {
     insert(&root, "Yo cuando 2");
     insert(&root, "Yo cuando 3");
     showList(root);
-    // searchNode(root, "Yo cuando 1");
     test = searchNode(root, "Yo cuando 2");
-    cout << test->text << endl;
+    deleteNode(root, "Yo cuando 1");
+    showList(root);
     return 0;
 }
