@@ -20,8 +20,11 @@ struct node * findEnd(node * p) {
 }
 
 void showList( struct node * p ) {
-    if (p != NULL)
+    if (p == NULL)
+        return;
+    else if ( p != NULL ) {
         cout << p->text << endl;
+    }
     showList(p->next);
 }
 
@@ -41,23 +44,22 @@ void insert(struct node ** pr, string text) {
     end->next = aux;
 }
 
-void removeNode( struct node * p, string text) {
-    struct node * aux = new node();
-    if (p->text == text) {
-        aux->text = p->text;
-        aux->next = NULL;
-        delete p;
-    } else {
-        removeNode(p, text);
+
+struct node * searchNode( struct node * p, string text) {
+    if ( p->text == text )
+        return p;
+    else if (p->next == NULL) {
+        cout << "No se encontró" << endl;
     }
+    searchNode(p->next,text);
 }
 
 int main() {
-    struct node * root = createNode("Test");
-    insert(&root, "Yo cuando");
+    struct node * root = createNode("raiz");
+    struct node * test = new node();
+    insert(&root, "Yo cuando 1");
     insert(&root, "Yo cuando 2");
     insert(&root, "Yo cuando 3");
     showList(root);
-    // removeNode(root, "Yo cuando");
     return 0;
 }
