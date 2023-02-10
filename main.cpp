@@ -17,7 +17,7 @@ struct node * findEnd(node * p) {
 
 void showList( struct node * p ) {
     if (p != NULL)
-        cout << p->text <<endl;
+        cout << p->text << endl;
     showList(p->next);
 }
 
@@ -53,7 +53,6 @@ int main() {
     insert(&root, "Yo cuando");
     insert(&root, "Yo cuando 2");
     insert(&root, "Yo cuando 3");
-    showList(root);
     showList(root);
     // removeNode(root, "Yo cuando");
     return 0;
