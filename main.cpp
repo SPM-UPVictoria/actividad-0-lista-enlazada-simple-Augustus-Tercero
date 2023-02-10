@@ -44,20 +44,30 @@ void insert(struct node ** pr, string text) {
     end->next = aux;
 }
 
-void searchNode( struct node * p, string text ) {
+// void searchNode( struct node * p, string text ) {
+    // if (p->text == text)
+        // cout << p->text << endl;
+    // else if (p->next == NULL)
+        // return;
+    // searchNode(p->next, text);
+// }
+
+struct node * searchNode( struct node * p, string text) {
     if (p->text == text)
-        cout << p->text << endl;
-    else if (p->next == NULL)
-        return;
-    searchNode(p->next, text);
+        return p;
+    else if (p->next != NULL)
+        return searchNode(p->next, text);
 }
 
 int main() {
     struct node * root = createNode("raiz");
+    struct node * test = new node();
     insert(&root, "Yo cuando 1");
     insert(&root, "Yo cuando 2");
     insert(&root, "Yo cuando 3");
     showList(root);
-    searchNode(root, "Yo cuando 1");
+    // searchNode(root, "Yo cuando 1");
+    test = searchNode(root, "Yo cuando 2");
+    cout << test->text << endl;
     return 0;
 }
