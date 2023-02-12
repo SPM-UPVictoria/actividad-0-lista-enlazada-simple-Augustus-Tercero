@@ -1,9 +1,6 @@
-//
-// Created by agust on 09/02/2023.
-//
-
 #include <iostream>
 #include <string.h>
+#include <vector>
 
 using namespace std;
 
@@ -22,9 +19,8 @@ struct node * findEnd(node * p) {
 void showList( struct node * p ) {
     if (p == NULL)
         return;
-    else if ( p != NULL ) {
+    else if (p != NULL)
         cout << p->text << endl;
-    }
     showList(p->next);
 }
 
@@ -44,42 +40,29 @@ void insert(struct node ** pr, string text) {
     end->next = aux;
 }
 
-// void searchNode( struct node * p, string text ) {
-    // if (p->text == text)
-        // cout << p->text << endl;
-    // else if (p->next == NULL)
-        // return;
-    // searchNode(p->next, text);
-// }
-
-struct node * searchNode( struct node * p, string text) {
-    if (p->text == text)
-        return p;
-    else if (p->next != NULL)
-        return searchNode(p->next, text);
-}
-
-void deleteNode( struct node * p, string text) {
+void removeNode( struct node *& p, string text) {
     struct node * aux = new node();
-    if (p->next == NULL)
-        return;
-    else if (p->text == text) {
-        aux = p;
-        p = p->next;
-        delete aux;
+    if (p->next != NULL){
+        if (p->text == text) {
+            aux = p;
+            p = p->next;
+            delete aux;
+        }
+        removeNode(p->next,text);
     }
-    deleteNode(p,text);
 }
+
+// void removeLastNode(struct node *& p);
 
 int main() {
-    struct node * root = createNode("raiz");
-    struct node * test = new node();
+    struct node * root = createNode("Test");
     insert(&root, "Yo cuando 1");
     insert(&root, "Yo cuando 2");
     insert(&root, "Yo cuando 3");
     showList(root);
-    test = searchNode(root, "Yo cuando 2");
-    deleteNode(root, "Yo cuando 1");
+    cout << "\n" << endl;
+    removeNode(root, "Test");
     showList(root);
     return 0;
 }
+
