@@ -12,8 +12,7 @@ struct node {
 struct node * findEnd(node * p) {
     if (p->next == NULL)
         return p;
-    else
-        return findEnd(p->next);
+    return findEnd(p->next);
 }
 
 void showList( struct node * p ) {
@@ -52,7 +51,19 @@ void removeNode( struct node *& p, string text) {
     }
 }
 
-// void removeLastNode(struct node *& p);
+void removeLastNode(struct node ** p) {
+    struct node * aux = new node();
+    struct node * auxLast = new node();
+    auxLast = findEnd(*p);
+    if ((*p)->next->next == NULL) {
+        aux = (*p)->next;
+        aux->next = NULL;
+        // delete (*p)->next->next;
+        delete auxLast;
+        return;
+    }
+    removeLastNode(&(*p)->next);
+}
 
 int main() {
     struct node * root = createNode("Test");
@@ -62,6 +73,9 @@ int main() {
     showList(root);
     cout << "\n" << endl;
     removeNode(root, "Test");
+    showList(root);
+    cout << "\n" << endl;
+    removeLastNode(&root);
     showList(root);
     return 0;
 }
