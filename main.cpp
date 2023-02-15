@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string.h>
-#include <vector>
 
 using namespace std;
 
@@ -30,13 +29,20 @@ struct node * createNode(string text) {
     return root;
 }
 
-void insert(struct node ** pr, string text) {
+void insert(struct node ** p, string text) {
     struct node * end = new node();
     struct node * aux = new node();
-    end = findEnd(*pr);
+    end = findEnd(*p);
     aux->text = text;
     aux->next = NULL;
     end->next = aux;
+}
+
+void pushNode(struct node ** p, string text) {
+    struct node * start = createNode(text);
+    // start->next = (*p)->next;
+    start->next = *p;
+    *p = start;
 }
 
 void removeNode( struct node *& p, string text) {
@@ -56,8 +62,9 @@ void removeLastNode(struct node ** p) {
     struct node * auxLast = new node();
     auxLast = findEnd(*p);
     if ((*p)->next->next == NULL) {
-        aux = (*p)->next;
-        aux->next = NULL;
+        // aux = (*p)->next;
+        // aux->next = NULL;
+        (*p)->next = NULL;
         // delete (*p)->next->next;
         delete auxLast;
         return;
@@ -76,6 +83,9 @@ int main() {
     showList(root);
     cout << "\n" << endl;
     removeLastNode(&root);
+    showList(root);
+    cout << "\n" << endl;
+    pushNode(&root, "My honest reaction");
     showList(root);
     return 0;
 }
